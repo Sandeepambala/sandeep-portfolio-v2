@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@theme {
+  /* Ground */
+  --color-canvas: #f5f7f4;
+  --color-surface: #ffffff;
+  --color-surface-2: #edf1ec;
+
+  /* Ink */
+  --color-ink: #16201b;
+  --color-body: #44524b;
+  --color-muted: #6d7b74;
+
+  /* Lines */
+  --color-line: #dde4de;
+  --color-dot: #c3cec6;
+
+  /* Accent */
+  --color-accent: #2642be;
+  --color-accent-hover: #1d35a0;
+  --color-accent-soft: #e8edfc;
+  --color-accent-line: #b9c7e8;
+
+  /* Signal */
+  --color-live: #17a05f;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --shadow-card: 0 2px 5px rgb(22 32 27 / 0.06);
+  --shadow-raised: 0 2px 6px rgb(22 32 27 / 0.08);
+  --shadow-node: 0 6px 18px rgb(38 66 190 / 0.26);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(var(--color-dot) 1.2px, transparent 1.2px);
+  background-size: 26px 26px;
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Entrance animations — disabled entirely for reduced-motion users. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes grow-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.line-x {
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: grow-x 0.5s ease-out forwards;
+}
+
+.line-y {
+  transform: scaleY(0);
+  transform-origin: top center;
+  animation: grow-y 0.7s ease-out forwards;
+}
+
+.flow-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .line-x,
+  .line-y,
+  .flow-dot {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
