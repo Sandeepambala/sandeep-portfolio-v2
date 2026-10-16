@@ -23,9 +23,14 @@ export default function About() {
                   priority={false}
                 />
               ) : (
-                <div className="flex aspect-4/5 items-center justify-center bg-surface-2">
-                  <span className="font-mono text-[11px] text-muted">
-                    add public/sandeep.jpg
+                /* No photo set yet — a monogram reads as a deliberate choice
+                   rather than a missing asset. See README to add one. */
+                <div className="dot-grid flex aspect-4/5 items-center justify-center bg-surface-2">
+                  <span
+                    aria-hidden
+                    className="flex size-20 items-center justify-center rounded-2xl bg-accent text-2xl font-bold text-white shadow-node"
+                  >
+                    {profile.initials}
                   </span>
                 </div>
               )}

@@ -1,6 +1,6 @@
 import { hero, profile, stats } from "@/content/site";
 import { ArrowIcon } from "./Icons";
-import WorkflowGraph from "./WorkflowGraph";
+import TransformationGraph from "./TransformationGraph";
 
 export default function Hero() {
   return (
@@ -68,7 +68,7 @@ export default function Hero() {
         </div>
 
         <div className="lg:justify-self-end">
-          <WorkflowGraph />
+          <TransformationGraph />
         </div>
       </div>
     </section>

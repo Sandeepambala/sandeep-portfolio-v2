@@ -8,7 +8,7 @@ export const profile = {
   initials: "SA",
   role: "Business Automation Specialist",
   tagline: "AI automation and ERP systems that remove manual work",
-  location: "Ahmedabad, India · Remote",
+  location: "Telangana, India · Remote",
   email: "sandeepambala31@gmail.com",
   linkedin: "https://linkedin.com/in/sandeep-ambala",
   github: "https://github.com/sandeepambala",
@@ -16,7 +16,7 @@ export const profile = {
   availabilityLabel: "Available for consulting & projects",
   /** Drop your photo at public/sandeep.jpg and set this to "/sandeep.jpg". */
   photo: "",
-  siteUrl: "https://sandeep-portfolio-v2.vercel.app",
+  siteUrl: "https://sandeep-portfolio-v2-six.vercel.app",
 } as const;
 
 export const hero = {
@@ -29,38 +29,40 @@ export const hero = {
   secondaryCta: { label: "See the systems", href: "#work" },
 } as const;
 
-export const stats = [
-  { value: "50+", label: "workflows built" },
-  { value: "170+", label: "people trained" },
-  { value: "10+", label: "projects delivered" },
-  { value: "5+", label: "enterprise clients" },
-] as const;
-
-/** The animated graph in the hero. Node ids must be unique. */
-export const workflowGraph = {
-  triggers: [
-    { id: "t1", kind: "TRIGGER", label: "Enquiry email" },
-    { id: "t2", kind: "TRIGGER", label: "WhatsApp message" },
-    { id: "t3", kind: "TRIGGER", label: "Website chatbot" },
-  ],
-  hub: {
-    id: "hub",
-    kind: "AI AGENT",
-    label: "Classify & route",
-    sub: "LangChain · ERPNext",
+/**
+ * The hero diagram: a tangle on the left that resolves into order on the right.
+ * Left-hand items are deliberately messy, right-hand items deliberately aligned —
+ * the contrast is the whole argument, so keep both lists short and concrete.
+ */
+export const transformation = {
+  before: {
+    label: "Your problem",
+    items: [
+      { id: "b1", text: "Four spreadsheets, one truth" },
+      { id: "b2", text: "Follow-ups chased by hand" },
+      { id: "b3", text: "Same data typed twice" },
+      { id: "b4", text: "Two systems, kept in sync manually" },
+    ],
   },
-  actions: [
-    { id: "a1", kind: "ACTION", label: "Create CRM lead" },
-    { id: "a2", kind: "ACTION", label: "Send reply" },
-    { id: "a3", kind: "ACTION", label: "Update dashboard" },
-  ],
-  caption: "zero manual steps",
+  middle: {
+    label: "Me",
+    name: "Sandeep",
+    sub: "ERPNext · Frappe · AI",
+  },
+  after: {
+    label: "Smooth",
+    items: [
+      { id: "a1", text: "One system, one record" },
+      { id: "a2", text: "Runs without being watched" },
+      { id: "a3", text: "Hours back, every week" },
+    ],
+  },
 } as const;
 
 export type Capability = {
   title: string;
   description: string;
-  icon: "bot" | "workflow" | "database" | "zap";
+  icon: "bot" | "workflow" | "database" | "zap" | "server";
 };
 
 export const capabilities: Capability[] = [
@@ -80,13 +82,19 @@ export const capabilities: Capability[] = [
     icon: "database",
     title: "ERPNext & Frappe",
     description:
-      "Custom modules and doctypes, React front-ends on the Frappe SDK, full LMS and CRM builds.",
+      "Custom modules and doctypes, React and Vue front-ends, LMS and CRM builds — plus CRM migrations from HubSpot and Asana, done in Frappe's own language so your team isn't stuck translating.",
   },
   {
     icon: "zap",
     title: "Integrations & APIs",
     description:
-      "WhatsApp, Meta, Telegram, Zoom, payment gateways and webhooks, wired straight into your ERP.",
+      "WhatsApp, Meta, Telegram, Zoom, SOAP services, payment gateways and webhooks, wired straight into your ERP.",
+  },
+  {
+    icon: "server",
+    title: "Deployment & hosting, handled",
+    description:
+      "Domains, DNS, servers and deployments run through Claude Code connected to Hostinger — no separate DevOps hire on your project.",
   },
 ];
 
@@ -103,6 +111,53 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    slug: "forms-pro",
+    title: "Forms Pro for Frappe",
+    subtitle: "Multi-step form builder on Frappe v16",
+    description:
+      "A full multi-step form builder built on Frappe UI. Forms map to existing DocTypes or create new ones, and every submission lands in ERPNext as a real record — no exports, no copy-paste.",
+    impact: "Business forms that write straight into the ERP",
+    tech: ["Frappe v16", "Frappe UI", "Vue", "Python", "Custom doctypes", "Claude Code"],
+    featured: true,
+  },
+  {
+    slug: "solar-crm-integration",
+    title: "CRM Integration for a Swiss Solar Company",
+    subtitle: "Legacy project system → Frappe CRM sync",
+    description:
+      "Connected a legacy project-management system's SOAP web service to a Frappe CRM. Projects, companies and contacts import automatically, with a settings page for credentials, a one-click connection test, batch fetching and an AI feature on top.",
+    impact: "One CRM instead of two systems kept in sync by hand",
+    tech: ["Frappe CRM", "SOAP / WSDL", "Python", "Encrypted credentials", "AI"],
+    featured: true,
+  },
+  {
+    slug: "erpnext-customer-portal",
+    title: "ERPNext Customer Portal",
+    subtitle: "Password-free portal with visit tracking",
+    description:
+      "Each customer gets a private, no-password link to their own portal inside ERPNext. Every visit is tracked, so the sales team knows exactly when a customer opened their quote or documents.",
+    impact: "Customers self-serve; sales sees who's engaged and when",
+    tech: ["ERPNext", "Frappe", "Python", "Web pages"],
+  },
+  {
+    slug: "frappe-mcp-copilot",
+    title: "Frappe MCP Connector & AI Copilot",
+    subtitle: "Plug Claude straight into a Frappe site",
+    description:
+      "An installable Frappe app that exposes the site to Claude as an MCP connector, using Frappe's built-in OAuth so data never leaves the client's own server. Read-only by design, permission-aware, with path-traversal protection. Paired with a custom copilot chat front end.",
+    impact: "Ask questions of your ERP in plain English, securely",
+    tech: ["Frappe", "MCP", "OAuth2", "Claude", "Python"],
+  },
+  {
+    slug: "frappe-claude-skills",
+    title: "Claude Code Skills for Frappe",
+    subtitle: "AI dev toolkit for the Frappe ecosystem",
+    description:
+      "A set of Claude Code skills covering DocTypes, hooks, APIs and Frappe UI conventions. Used daily on client work — a tester reports a bug on a call, and the fix is often live before they finish re-explaining it.",
+    impact: "Bug fixes during the testing call, not the next sprint",
+    tech: ["Claude Code", "Frappe", "Frappe UI", "ERPNext"],
+  },
   {
     slug: "icd-logistics",
     title: "ICD Logistics Platform",
@@ -121,7 +176,6 @@ export const projects: Project[] = [
       "The whole cold-calling workflow, automated: leads flow from the research team to callers with AI-generated scripts powered by Perplexity. Calls record in real time and categorise themselves for instant insight.",
     impact: "70% less call-prep time and better pitch quality across sales teams",
     tech: ["ERPNext", "Perplexity API", "n8n", "Voice processing", "LLM"],
-    featured: true,
   },
   {
     slug: "ai-chatbot-saas",
@@ -131,7 +185,6 @@ export const projects: Project[] = [
       "A SaaS platform where any website adds an AI assistant with one JavaScript snippet. Visitor conversations, timelines and analytics land directly in ERPNext, auto-generating CRM leads and opportunities.",
     impact: "Multi-tenant architecture deployed across client websites",
     tech: ["Frappe", "LLM", "JavaScript", "ERPNext CRM", "Analytics"],
-    featured: true,
   },
   {
     slug: "shanthipath-yoga",
@@ -189,6 +242,17 @@ export const projects: Project[] = [
   },
 ];
 
+/**
+ * The project count is derived, so adding a project to the list above keeps
+ * the hero stat and the Work heading honest without a second edit.
+ */
+export const stats = [
+  { value: "50+", label: "workflows built" },
+  { value: "170+", label: "people trained" },
+  { value: `${projects.length}`, label: "projects delivered" },
+  { value: "5+", label: "enterprise clients" },
+] as const;
+
 export type Experience = {
   company: string;
   role: string;
@@ -212,8 +276,22 @@ export const experience: Experience[] = [
       "Integrating LLMs into ERP systems to enable AI-driven automation",
       "Developing n8n automation pipelines connecting ERPNext to external APIs and messaging platforms",
       "Creating operational dashboards and workspaces that improve visibility for business teams",
+      "Built a Forms Pro app, a password-free ERPNext customer portal and a SOAP-based CRM data integration for international clients",
+      "Fix and ship bugs live with the testing team using custom Claude Code skills for Frappe",
+      "Interview and evaluate Frappe / ERPNext developer candidates alongside senior leadership",
     ],
     achievement: "Best AI & Client Success Champion (Feb 2026) — within six months of joining",
+  },
+  {
+    company: "Freelance",
+    role: "Frappe / ERPNext & Web Developer",
+    period: "2025 — Present",
+    location: "Remote",
+    current: true,
+    points: [
+      "Deliver client websites and servers end to end, including hosting, DNS and deployment via Claude Code and Hostinger",
+      "Migrate businesses from HubSpot and Asana to Frappe CRM and ERPNext",
+    ],
   },
   {
     company: "Valuepitch",
@@ -242,11 +320,26 @@ export const experience: Experience[] = [
 ];
 
 export const stack = [
-  { group: "ERP & frameworks", items: ["ERPNext", "Frappe", "Frappe LMS", "Frappe React SDK", "Raven"] },
-  { group: "AI & automation", items: ["LangChain", "Perplexity", "OpenAI", "Claude", "n8n", "Pabbly", "RAG"] },
-  { group: "Languages & web", items: ["Python", "JavaScript", "TypeScript", "React", "Next.js", "Tailwind CSS"] },
-  { group: "Data & infra", items: ["MariaDB", "Redis", "Linux", "Bench", "Git", "Vercel"] },
-  { group: "Integrations", items: ["WhatsApp API", "Meta API", "Telegram", "Zoom API", "Payment gateways", "Webhooks"] },
+  {
+    group: "ERP & frameworks",
+    items: ["ERPNext", "Frappe", "Frappe v16", "Frappe UI", "Frappe CRM", "Frappe LMS", "Frappe React SDK", "Raven"],
+  },
+  {
+    group: "AI & automation",
+    items: ["Claude Code", "MCP", "LangChain", "Perplexity", "OpenAI", "n8n", "Pabbly", "RAG"],
+  },
+  {
+    group: "Languages & web",
+    items: ["Python", "JavaScript", "TypeScript", "Vue", "React", "Next.js", "Tailwind CSS"],
+  },
+  {
+    group: "Data & infra",
+    items: ["MariaDB", "Redis", "Linux", "Bench", "Git", "Hostinger", "DNS / SSL", "Vercel"],
+  },
+  {
+    group: "Integrations",
+    items: ["WhatsApp API", "Meta API", "Telegram", "Zoom API", "SOAP / WSDL", "OAuth2", "Payment gateways", "Webhooks"],
+  },
 ] as const;
 
 export const achievements = [
@@ -270,6 +363,22 @@ export const education = [
   { course: "Inter (CEC)", institution: "MIMS Junior College, Mancherial", year: "2019 — 2021" },
   { course: "SSC (10th)", institution: "Yuva Sangatan High School, Bellampalli", year: "2018 — 2019" },
 ] as const;
+
+export const writing = {
+  heading: "Writing & community",
+  items: [
+    {
+      title: "Frappe + AI, in plain language",
+      body: "Storyteller posts on building with Frappe, ERPNext and AI — plus a weekly Monday AI News series.",
+      cta: "Read on LinkedIn",
+      href: profile.linkedin,
+    },
+    {
+      title: "Open source",
+      body: "Contributing back to the Frappe ecosystem that the rest of this work is built on.",
+    },
+  ],
+} as const;
 
 export const nav = [
   { label: "Work", href: "#work" },

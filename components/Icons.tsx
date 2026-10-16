@@ -54,6 +54,16 @@ export function ZapIcon(props: IconProps) {
   );
 }
 
+export function ServerIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <rect x="3" y="4" width="18" height="7" rx="2" />
+      <rect x="3" y="13" width="18" height="7" rx="2" />
+      <path d="M7 7.5h.01M7 16.5h.01" />
+    </svg>
+  );
+}
+
 export function ArrowIcon(props: IconProps) {
   return (
     <svg {...base(props)}>
@@ -92,4 +102,5 @@ export const capabilityIcons: Record<Capability["icon"], (props: IconProps) => R
   workflow: WorkflowIcon,
   database: DatabaseIcon,
   zap: ZapIcon,
+  server: ServerIcon,
 };

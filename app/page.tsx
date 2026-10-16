@@ -7,6 +7,7 @@ import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import Stack from "@/components/Stack";
 import Work from "@/components/Work";
+import Writing from "@/components/Writing";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         <About />
         <Stack />
         <Credentials />
+        <Writing />
         <Contact />
       </main>
       <Footer />

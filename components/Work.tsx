@@ -49,12 +49,20 @@ function FeaturedCard({ project, delay }: { project: Project; delay: number }) {
   );
 }
 
-function ListRow({ project, index }: { project: Project; index: number }) {
+function ListRow({
+  project,
+  index,
+  numberFrom,
+}: {
+  project: Project;
+  index: number;
+  numberFrom: number;
+}) {
   return (
     <Reveal delay={index * 50}>
       <article className="grid gap-x-6 gap-y-2 border-t border-line py-5 md:grid-cols-12 md:items-baseline">
         <span className="font-mono text-xs text-muted md:col-span-1">
-          {String(index + 4).padStart(2, "0")}
+          {String(numberFrom + index).padStart(2, "0")}
         </span>
         <div className="md:col-span-4">
           <h3 className="text-base font-semibold">{project.title}</h3>
@@ -100,7 +108,12 @@ export default function Work() {
           <h3 className="label-mono mb-1">More systems</h3>
         </Reveal>
         {rest.map((project, i) => (
-          <ListRow key={project.slug} project={project} index={i} />
+          <ListRow
+            key={project.slug}
+            project={project}
+            index={i}
+            numberFrom={featured.length + 1}
+          />
         ))}
         <div className="border-t border-line" />
       </div>
