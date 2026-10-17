@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { projects, type Project } from "@/content/site";
+import { ExternalLinkIcon } from "./Icons";
 import Reveal from "./Reveal";
 
 function Thumb({ project }: { project: Project }) {
@@ -19,6 +20,24 @@ function Thumb({ project }: { project: Project }) {
     <div className="flex h-26 items-center justify-center border-b border-line bg-surface-2">
       <span className="font-mono text-[11px] text-muted">{project.subtitle}</span>
     </div>
+  );
+}
+
+/** Shown wherever a project has something a visitor can actually open. */
+function ProjectLink({ project, className }: { project: Project; className?: string }) {
+  if (!project.link) return null;
+
+  return (
+    <a
+      href={project.link.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center gap-1.5 text-sm font-semibold text-accent transition-colors duration-200 hover:text-accent-hover ${className ?? ""}`}
+    >
+      {project.link.label}
+      <span className="sr-only"> — {project.title} (opens in a new tab)</span>
+      <ExternalLinkIcon width={14} height={14} />
+    </a>
   );
 }
 
@@ -43,6 +62,8 @@ function FeaturedCard({ project, delay }: { project: Project; delay: number }) {
               </li>
             ))}
           </ul>
+          {/* mt-auto pins the link to the bottom so cards of different heights line up. */}
+          <ProjectLink project={project} className="mt-auto pt-4" />
         </div>
       </article>
     </Reveal>
@@ -70,7 +91,10 @@ function ListRow({
             {project.subtitle}
           </p>
         </div>
-        <p className="text-sm leading-relaxed text-body md:col-span-5">{project.description}</p>
+        <div className="md:col-span-5">
+          <p className="text-sm leading-relaxed text-body">{project.description}</p>
+          <ProjectLink project={project} className="mt-2" />
+        </div>
         <p className="text-sm text-muted md:col-span-2 md:text-right">
           {project.tech.slice(0, 3).join(" · ")}
         </p>
@@ -97,7 +121,7 @@ export default function Work() {
         </div>
       </Reveal>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {featured.map((project, i) => (
           <FeaturedCard key={project.slug} project={project} delay={i * 80} />
         ))}

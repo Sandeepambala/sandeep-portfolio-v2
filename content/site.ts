@@ -126,6 +126,8 @@ export type Project = {
   featured?: boolean;
   /** Put a screenshot at public/work/<slug>.png and set this to "/work/<slug>.png". */
   image?: string;
+  /** Anything a visitor can open — a repo, a live site, a demo. Opens in a new tab. */
+  link?: { href: string; label: string };
 };
 
 export const projects: Project[] = [
@@ -148,6 +150,19 @@ export const projects: Project[] = [
     impact: "One CRM instead of two systems kept in sync by hand",
     tech: ["Frappe CRM", "SOAP / WSDL", "Python", "Encrypted credentials", "AI"],
     featured: true,
+  },
+  {
+    slug: "vizleads-nexus",
+    title: "VizLeads Nexus",
+    subtitle: "Search-to-leads SaaS platform",
+    description:
+      "Search for businesses or jobs and get qualified leads — name, website, phone, industry, rating — in your own workspace. An n8n pipeline pushes results in through a secret-signed webhook, and Postgres row-level security keeps every row private to the person who searched for it. Google sign-in, saved searches and full history.",
+    impact: "From a search query to qualified leads in about a minute",
+    tech: ["React", "Supabase", "Postgres RLS", "n8n", "Google OAuth", "TypeScript"],
+    featured: true,
+    // Uncomment once github.com/Sandeepambala/vizleads-nexus is public. While it
+    // is private the link 404s for every visitor, which reads as a broken site.
+    // link: { href: "https://github.com/Sandeepambala/vizleads-nexus", label: "View source" },
   },
   {
     slug: "erpnext-customer-portal",

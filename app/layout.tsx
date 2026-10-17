@@ -142,6 +142,8 @@ function structuredData() {
             about: p.subtitle,
             keywords: p.tech.join(", "),
             creator: { "@id": personId },
+            // A real URL turns the entry from a claim into something crawlable.
+            ...(p.link ? { url: p.link.href } : {}),
           },
         })),
       },
