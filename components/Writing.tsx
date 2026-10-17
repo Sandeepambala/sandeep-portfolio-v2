@@ -4,7 +4,7 @@ import Reveal from "./Reveal";
 
 export default function Writing() {
   return (
-    <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6 lg:px-8 lg:pb-16">
+    <section id="writing" className="mx-auto max-w-6xl px-4 pb-14 sm:px-6 lg:px-8 lg:pb-16">
       <Reveal>
         <h2 className="label-mono">{writing.heading}</h2>
       </Reveal>

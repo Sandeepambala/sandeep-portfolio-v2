@@ -20,62 +20,83 @@ export const profile = {
 } as const;
 
 export const hero = {
-  headline: ["Your operations,", "wired end to end."],
-  /** Words in the headline rendered in the accent colour. */
-  accentFrom: 1,
+  badge: "From manual work to automated systems",
+  headline: { lead: "Less Chaos.", accent: "More Possibilities." },
   body:
-    "I connect the tools you already use into one automated system — ERPNext and Frappe at the core, AI agents and n8n doing the work nobody should be doing by hand.",
+    "I connect the tools you already use into one automated system — ERPNext, Frappe, AI agents and n8n. So your business runs smoothly, without the repetitive work.",
   primaryCta: { label: "Map my workflow", href: "#contact" },
   secondaryCta: { label: "See the systems", href: "#work" },
 } as const;
 
 /**
- * The hero diagram: a tangle on the left that resolves into order on the right.
- * Left-hand items are deliberately messy, right-hand items deliberately aligned —
- * the contrast is the whole argument, so keep both lists short and concrete.
+ * The four-up strip under the hero. A summary of `capabilities`, not a second
+ * list of services — keep it to four, two words each.
  */
-export const transformation = {
-  before: {
-    label: "Your problem",
-    /**
-     * Deliberately many and deliberately broad. A short list invites "none of
-     * those are mine"; a crowded one guarantees a visitor finds theirs, and the
-     * crowding itself is the message. Keep each line under ~20 characters so the
-     * chips stay on one line, and keep `catchAll` last.
-     */
-    items: [
-      "Manual data entry",
-      "Excel everywhere",
-      "Copy-paste all day",
-      "Chasing follow-ups",
-      "Quotes typed by hand",
-      "Month-end chaos",
-      "Enquiries slip away",
-      "Orders over WhatsApp",
-      "No single truth",
-      "Stock never matches",
-      "Approvals stuck",
-      "Re-typing invoices",
-      "Reports by hand",
-      "Two systems, no sync",
-      "Customers chasing",
-      "Doing robot work",
-      "Nothing's traceable",
-      "Data in five places",
-    ],
-    catchAll: "…and yours, whatever it is",
+export const serviceBar = [
+  { icon: "database", title: "ERPNext", sub: "Development" },
+  { icon: "workflow", title: "Workflow", sub: "Automation" },
+  { icon: "bot", title: "AI Agents", sub: "& Integrations" },
+  { icon: "zap", title: "Custom Tools", sub: "& Solutions" },
+] as const;
+
+/**
+ * The hero stage: a cloud of everyday mess on the left, resolved through one
+ * hub into three calm outcomes on the right.
+ *
+ * `count` draws an unread-style badge — the detail that makes a card feel like
+ * a real inbox rather than an illustration. Icons are deliberately generic
+ * shapes, never brand logos.
+ */
+export type ChaosCard = { id: string; icon: string; label: string; count?: number };
+
+export const chaosCards: ChaosCard[] = [
+  { id: "c1", icon: "sheet", label: "Excel sheets" },
+  { id: "c2", icon: "mail", label: "Unread emails", count: 24 },
+  { id: "c3", icon: "chat", label: "Customer messages", count: 12 },
+  { id: "c4", icon: "duplicate", label: "Duplicate records" },
+  { id: "c5", icon: "folder", label: "Scattered information" },
+  { id: "c6", icon: "invoice", label: "Invoices to retype" },
+  { id: "c7", icon: "chat", label: "Follow-ups on WhatsApp", count: 8 },
+];
+
+/** Icon-only tiles that fill the gaps and read as "yet another tool". */
+export const chaosTiles = [
+  { id: "t1", icon: "board" },
+  { id: "t2", icon: "team" },
+  { id: "t3", icon: "cloud" },
+  { id: "t4", icon: "sheet" },
+] as const;
+
+/** Handwritten margin notes, the way someone would annotate a printout. */
+export const chaosNotes = [
+  { id: "n1", text: "Disorganised data" },
+  { id: "n2", text: "Follow-ups pending" },
+  { id: "n3", text: "Different tools" },
+  { id: "n4", text: "Manual work" },
+  { id: "n5", text: "No clear process" },
+  { id: "n6", text: "Time lost" },
+] as const;
+
+/** The ring of capabilities orbiting the hub. */
+export const orbitIcons = ["database", "workflow", "bot", "server", "zap"] as const;
+
+export const outcomes = [
+  {
+    id: "o1",
+    title: "One system, one record",
+    body: "All your data in ERPNext. No duplicates. No confusion.",
   },
-  middle: {
-    label: "Me",
-    name: "Sandeep",
-    sub: "ERPNext · Frappe · AI",
+  {
+    id: "o2",
+    title: "Runs automatically",
+    body: "Workflows, AI agents, n8n, email and WhatsApp automation.",
   },
-  after: {
-    label: "Smooth",
-    /** Exactly three — the calm on this side depends on it being few. */
-    items: ["One system, one record", "Runs without being watched", "Hours back, every week"],
+  {
+    id: "o3",
+    title: "Hours back every week",
+    body: "Less manual work. More time for what actually matters.",
   },
-} as const;
+] as const;
 
 export type Capability = {
   title: string;

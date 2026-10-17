@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Caveat, IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { capabilities, experience, profile, projects, stack } from "@/content/site";
 import "./globals.css";
 
@@ -14,6 +14,14 @@ const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-plex-mono",
+  display: "swap",
+});
+
+/** Only for the hero's handwritten margin notes — one weight, nothing else. */
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["500"],
+  variable: "--font-caveat",
   display: "swap",
 });
 
@@ -155,7 +163,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${plexMono.variable}`}>
+    <html
+      lang="en"
+      className={`${jakarta.variable} ${plexMono.variable} ${caveat.variable}`}
+    >
       <body className="font-sans antialiased">
         <a
           href="#main"

@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { nav, profile } from "@/content/site";
+import { onScroll } from "@/lib/reveal-manager";
 
 const SECTIONS = nav.map((item) => item.href.slice(1));
 
@@ -9,12 +10,10 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState<string | null>(null);
-  const frame = useRef(0);
 
-  /* One rAF-throttled listener drives both the condensed bar and the active link. */
-  useEffect(() => {
-    const read = () => {
-      frame.current = 0;
+  /* Rides the shared scroll pass — no listener of its own. */
+  useEffect(() =>
+    onScroll(() => {
       setScrolled(window.scrollY > 12);
 
       // The section whose top has most recently passed a third of the viewport.
@@ -25,21 +24,8 @@ export default function Nav() {
         if (el && el.getBoundingClientRect().top <= line) current = id;
       }
       setActive(current);
-    };
-
-    const schedule = () => {
-      if (!frame.current) frame.current = requestAnimationFrame(read);
-    };
-
-    read();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    return () => {
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      if (frame.current) cancelAnimationFrame(frame.current);
-    };
-  }, []);
+    }),
+  );
 
   useEffect(() => {
     if (!open) return;

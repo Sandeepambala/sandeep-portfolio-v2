@@ -15,6 +15,8 @@
 type Entry = { el: HTMLElement; show: () => void };
 
 const registry = new Set<Entry>();
+/** Continuous subscribers (the nav, the story spine) sharing the same pass. */
+const subscribers = new Set<() => void>();
 let frame = 0;
 let listening = false;
 
@@ -27,6 +29,10 @@ function inView(el: HTMLElement) {
   return top < viewport * THRESHOLD && bottom > 0;
 }
 
+function idle() {
+  return registry.size === 0 && subscribers.size === 0;
+}
+
 function flush() {
   frame = 0;
   for (const entry of registry) {
@@ -35,7 +41,8 @@ function flush() {
       registry.delete(entry);
     }
   }
-  if (registry.size === 0) stop();
+  for (const cb of subscribers) cb();
+  if (idle()) stop();
 }
 
 function schedule() {
@@ -77,7 +84,24 @@ export function observe(el: HTMLElement, show: () => void): { visible: boolean; 
     visible: false,
     off: () => {
       registry.delete(entry);
-      if (registry.size === 0) stop();
+      if (idle()) stop();
     },
+  };
+}
+
+/**
+ * Subscribes to every scroll and resize frame, on the same listener the
+ * reveals use. For things that track position continuously rather than firing
+ * once — the nav's active link, the story spine's progress. Fires immediately
+ * so the caller starts from the real scroll position, not from zero.
+ */
+export function onScroll(cb: () => void): () => void {
+  subscribers.add(cb);
+  start();
+  cb();
+
+  return () => {
+    subscribers.delete(cb);
+    if (idle()) stop();
   };
 }

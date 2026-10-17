@@ -124,6 +124,53 @@
   }
 }
 
+/* The hero core: a soft halo, and a ring that turns while its icons stay level. */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes halo-breathe {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+.hub-halo {
+  background:
+    radial-gradient(circle at 50% 50%, rgb(38 66 190 / 0.16) 0%, transparent 62%),
+    radial-gradient(circle at 38% 36%, rgb(138 94 232 / 0.16) 0%, transparent 58%);
+  animation: halo-breathe 6s ease-in-out infinite;
+}
+
+.orbit {
+  animation: spin 44s linear infinite;
+}
+
+.orbit-reverse {
+  animation: spin-reverse 44s linear infinite;
+}
+
+.headline-gradient {
+  background: linear-gradient(95deg, #6d3ee0 0%, #2642be 48%, #2f7df5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 @keyframes fade-in {
   to {
     opacity: 1;
@@ -313,6 +360,9 @@
   .reveal-left,
   .reveal-right,
   .chaos-chip,
+  .orbit,
+  .orbit-reverse,
+  .hub-halo,
   .fade-path,
   .draw-path,
   .drop-dot,

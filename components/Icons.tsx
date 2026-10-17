@@ -112,3 +112,92 @@ export const capabilityIcons: Record<Capability["icon"], (props: IconProps) => R
   zap: ZapIcon,
   server: ServerIcon,
 };
+
+/* --------------------------------------------------------------------------
+ * Hero chaos-cloud icons.
+ *
+ * Generic shapes on purpose — a spreadsheet grid, an envelope, a chat bubble.
+ * Redrawing Gmail, WhatsApp, Slack or Notion marks would put someone else's
+ * trademarks on this site, and the point lands just as well without them.
+ * ----------------------------------------------------------------------- */
+
+export function SheetIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 9h18M3 14.5h18M9 9v11M15 9v11" />
+    </svg>
+  );
+}
+
+export function ChatIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M21 11.5a8 8 0 0 1-11.9 7L3 20.5l2.1-5.9A8 8 0 1 1 21 11.5Z" />
+    </svg>
+  );
+}
+
+export function DuplicateIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <rect x="8" y="3" width="12" height="14" rx="2" />
+      <path d="M16 20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2" />
+    </svg>
+  );
+}
+
+export function FolderIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M3 7a2 2 0 0 1 2-2h3.6a2 2 0 0 1 1.4.6L11.5 7H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
+    </svg>
+  );
+}
+
+export function InvoiceIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M6 3h12v18l-3-2-3 2-3-2-3 2Z" />
+      <path d="M9.5 8h5M9.5 12h5" />
+    </svg>
+  );
+}
+
+export function BoardIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M8.5 8v8M15.5 8v5" />
+    </svg>
+  );
+}
+
+export function TeamIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <circle cx="9" cy="8" r="3" />
+      <path d="M3.5 19a5.5 5.5 0 0 1 11 0M16 5.2a3 3 0 0 1 0 5.6M17.5 19a5.5 5.5 0 0 0-2.2-4.4" />
+    </svg>
+  );
+}
+
+export function CloudIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M7 18h10a4 4 0 0 0 .5-7.97 6 6 0 0 0-11.6 1.3A3.5 3.5 0 0 0 7 18Z" />
+    </svg>
+  );
+}
+
+export const chaosIcons: Record<string, (props: IconProps) => React.JSX.Element> = {
+  sheet: SheetIcon,
+  mail: MailIcon,
+  chat: ChatIcon,
+  duplicate: DuplicateIcon,
+  folder: FolderIcon,
+  invoice: InvoiceIcon,
+  board: BoardIcon,
+  team: TeamIcon,
+  cloud: CloudIcon,
+};

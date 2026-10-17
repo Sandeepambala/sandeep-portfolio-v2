@@ -53,7 +53,7 @@ function RowList({
 
 export default function Credentials() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+    <section id="proof" className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
       <Reveal>
         <h2 className="label-mono">Recognition &amp; credentials</h2>
       </Reveal>

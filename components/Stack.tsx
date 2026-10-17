@@ -3,7 +3,7 @@ import Reveal from "./Reveal";
 
 export default function Stack() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+    <section id="stack" className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
       <Reveal>
         <h2 className="label-mono">Stack</h2>
       </Reveal>

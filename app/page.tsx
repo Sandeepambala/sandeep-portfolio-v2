@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import Stack from "@/components/Stack";
+import StorySpine from "@/components/StorySpine";
 import Work from "@/components/Work";
 import Writing from "@/components/Writing";
 
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <div className="dot-grid min-h-dvh">
       <Nav />
+      <StorySpine />
       <main id="main">
         {/* The hero paints immediately; everything below it defers. */}
         <Hero />
