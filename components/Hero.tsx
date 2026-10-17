@@ -1,5 +1,6 @@
 import { hero, profile, stats } from "@/content/site";
 import { ArrowIcon } from "./Icons";
+import PauseOffscreen from "./PauseOffscreen";
 import TransformationGraph from "./TransformationGraph";
 
 export default function Hero() {
@@ -68,7 +69,9 @@ export default function Hero() {
         </div>
 
         <div className="lg:justify-self-end">
-          <TransformationGraph />
+          <PauseOffscreen>
+            <TransformationGraph />
+          </PauseOffscreen>
         </div>
       </div>
     </section>

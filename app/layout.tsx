@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
-import { profile } from "@/content/site";
+import { capabilities, experience, profile, projects, stack } from "@/content/site";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -12,61 +12,146 @@ const jakarta = Plus_Jakarta_Sans({
 
 const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400"],
   variable: "--font-plex-mono",
   display: "swap",
 });
 
-const description = `${profile.role}. ${profile.tagline}. Built with ERPNext, Frappe, n8n and LLM agents.`;
+const title = `${profile.name} — ERPNext, Frappe & AI Automation Developer`;
+const description =
+  "I build AI automation and ERP systems that remove manual work — ERPNext, Frappe, n8n and LLM agents. 50+ workflows built for 5+ enterprise clients. Available for consulting and projects.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
-  title: {
-    default: `${profile.name} — ${profile.role}`,
-    template: `%s — ${profile.name}`,
-  },
+  title: { default: title, template: `%s — ${profile.name}` },
   description,
+  applicationName: profile.name,
   keywords: [
     "ERPNext developer",
     "Frappe developer",
-    "AI automation",
-    "n8n",
-    "LangChain",
-    "business automation",
-    "workflow automation",
+    "ERPNext consultant India",
+    "Frappe framework developer",
+    "AI automation consultant",
+    "n8n automation expert",
+    "LangChain ERPNext",
+    "business process automation",
+    "workflow automation consultant",
+    "ERPNext customisation",
+    "Frappe CRM migration",
+    "HubSpot to Frappe migration",
     profile.name,
   ],
   authors: [{ name: profile.name, url: profile.siteUrl }],
   creator: profile.name,
+  publisher: profile.name,
+  alternates: { canonical: "/" },
+  category: "technology",
   openGraph: {
-    type: "website",
+    type: "profile",
     url: profile.siteUrl,
-    title: `${profile.name} — ${profile.role}`,
+    title,
     description,
     siteName: profile.name,
+    locale: "en_IN",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: `${profile.name} — ${profile.role}`,
-    description,
+  twitter: { card: "summary_large_image", title, description },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
-  robots: { index: true, follow: true },
+  // The favicon comes from app/icon.svg, which Next wires up automatically.
 };
+
+export const viewport = {
+  themeColor: "#f5f7f4",
+  width: "device-width",
+  initialScale: 1,
+};
+
+/**
+ * One @graph rather than several loose blobs, so Google can resolve the
+ * relationships between the person, the page and the work.
+ */
+function structuredData() {
+  const personId = `${profile.siteUrl}/#person`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": personId,
+        name: profile.name,
+        jobTitle: profile.role,
+        description,
+        email: `mailto:${profile.email}`,
+        url: profile.siteUrl,
+        image: `${profile.siteUrl}/opengraph-image`,
+        sameAs: [profile.linkedin, profile.github],
+        address: { "@type": "PostalAddress", addressRegion: "Telangana", addressCountry: "IN" },
+        knowsAbout: [
+          ...capabilities.map((c) => c.title),
+          ...stack.flatMap((g) => [...g.items]),
+        ],
+        worksFor: {
+          "@type": "Organization",
+          name: experience[0].company,
+        },
+        alumniOf: experience
+          .map((e) => e.company)
+          .filter((c, i, all) => all.indexOf(c) === i)
+          .map((name) => ({ "@type": "Organization", name })),
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${profile.siteUrl}/#website`,
+        url: profile.siteUrl,
+        name: title,
+        description,
+        inLanguage: "en",
+        publisher: { "@id": personId },
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": `${profile.siteUrl}/#webpage`,
+        url: profile.siteUrl,
+        name: title,
+        isPartOf: { "@id": `${profile.siteUrl}/#website` },
+        about: { "@id": personId },
+        primaryImageOfPage: `${profile.siteUrl}/opengraph-image`,
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${profile.siteUrl}/#work`,
+        name: "Selected work",
+        numberOfItems: projects.length,
+        itemListElement: projects.map((p, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "CreativeWork",
+            name: p.title,
+            description: p.description,
+            about: p.subtitle,
+            keywords: p.tech.join(", "),
+            creator: { "@id": personId },
+          },
+        })),
+      },
+    ],
+  };
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const personJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: profile.name,
-    jobTitle: profile.role,
-    email: `mailto:${profile.email}`,
-    url: profile.siteUrl,
-    sameAs: [profile.linkedin, profile.github],
-    knowsAbout: ["ERPNext", "Frappe", "AI automation", "n8n", "LangChain", "Workflow automation"],
-  };
-
   return (
     <html lang="en" className={`${jakarta.variable} ${plexMono.variable}`}>
       <body className="font-sans antialiased">
@@ -79,7 +164,7 @@ export default function RootLayout({
         {children}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData()) }}
         />
       </body>
     </html>

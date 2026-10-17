@@ -12,7 +12,7 @@ export default function Writing() {
       <div className="mt-5 grid gap-4 md:grid-cols-2">
         {writing.items.map((item, i) => (
           <Reveal key={item.title} delay={i * 70}>
-            <article className="h-full rounded-2xl border border-line bg-surface p-5 shadow-card">
+            <article className="lift h-full rounded-2xl border border-line bg-surface p-5 shadow-card hover:border-accent/40 hover:shadow-raised">
               <h3 className="text-base font-semibold">{item.title}</h3>
               <p className="mt-1.5 text-sm leading-relaxed text-body">{item.body}</p>
               {"href" in item && item.href ? (

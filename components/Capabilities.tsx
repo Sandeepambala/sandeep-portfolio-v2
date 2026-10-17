@@ -14,7 +14,7 @@ export default function Capabilities() {
           const Icon = capabilityIcons[cap.icon];
           return (
             <Reveal key={cap.title} delay={i * 70}>
-              <article className="h-full rounded-2xl border border-line bg-surface p-5 shadow-card transition-shadow hover:shadow-raised">
+              <article className="lift h-full rounded-2xl border border-line bg-surface p-5 shadow-card hover:border-accent/40 hover:shadow-raised">
                 <span className="flex size-9 items-center justify-center rounded-[10px] bg-accent-soft text-accent">
                   <Icon width={19} height={19} />
                 </span>

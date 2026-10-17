@@ -57,6 +57,16 @@
   }
 }
 
+/*
+ * Below-the-fold sections skip layout and paint until they are near the
+ * viewport. contain-intrinsic-size supplies a placeholder height so the
+ * scrollbar does not jump as each one is rendered for the first time.
+ */
+@utility defer-paint {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
 @utility dot-grid {
   background-image: radial-gradient(var(--color-dot) 1.2px, transparent 1.2px);
   background-size: 26px 26px;
@@ -71,10 +81,42 @@
 }
 
 /* Entrance animations — disabled entirely for reduced-motion users. */
+/*
+ * One easing curve for every entrance on the site, and one for every hover.
+ * Keeping them in variables is what makes the motion feel like one system
+ * rather than a pile of separate effects.
+ */
+@theme {
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-hover: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
   }
   to {
     opacity: 1;
@@ -106,9 +148,50 @@
   }
 }
 
-.reveal {
+.reveal,
+.reveal-left,
+.reveal-right {
   opacity: 0;
-  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-duration: 0.7s;
+  animation-timing-function: var(--ease-entrance);
+  animation-fill-mode: forwards;
+}
+
+.reveal {
+  animation-name: rise;
+}
+
+.reveal-left {
+  animation-name: slide-left;
+}
+
+.reveal-right {
+  animation-name: slide-right;
+}
+
+/*
+ * Cards and buttons share one hover transition so nothing on the page moves
+ * at a different speed from anything else.
+ */
+@utility lift {
+  transition:
+    transform 0.25s var(--ease-hover),
+    box-shadow 0.25s var(--ease-hover),
+    border-color 0.25s var(--ease-hover);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/*
+ * The hero animates continuously, so it is stopped outright once scrolled past.
+ * Without this, 21 particles and 31 drifting chips keep burning frames on a
+ * section nobody is looking at.
+ */
+.motion-paused *,
+.motion-paused {
+  animation-play-state: paused !important;
 }
 
 /* Tangled paths keep their dashes, so they fade rather than draw. */
@@ -227,6 +310,8 @@
   }
 
   .reveal,
+  .reveal-left,
+  .reveal-right,
   .chaos-chip,
   .fade-path,
   .draw-path,

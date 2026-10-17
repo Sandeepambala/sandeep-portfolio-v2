@@ -25,7 +25,7 @@ function Thumb({ project }: { project: Project }) {
 function FeaturedCard({ project, delay }: { project: Project; delay: number }) {
   return (
     <Reveal delay={delay} className="h-full">
-      <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-card transition-shadow hover:shadow-raised">
+      <article className="lift flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-card hover:border-accent/40 hover:shadow-raised">
         <Thumb project={project} />
         <div className="flex flex-1 flex-col p-5">
           <h3 className="text-lg font-bold tracking-[-0.015em]">{project.title}</h3>

@@ -14,13 +14,26 @@ export default function Home() {
     <div className="dot-grid min-h-dvh">
       <Nav />
       <main id="main">
+        {/* The hero paints immediately; everything below it defers. */}
         <Hero />
-        <Capabilities />
-        <Work />
-        <About />
-        <Stack />
-        <Credentials />
-        <Writing />
+        <div className="defer-paint">
+          <Capabilities />
+        </div>
+        <div className="defer-paint">
+          <Work />
+        </div>
+        <div className="defer-paint">
+          <About />
+        </div>
+        <div className="defer-paint">
+          <Stack />
+        </div>
+        <div className="defer-paint">
+          <Credentials />
+        </div>
+        <div className="defer-paint">
+          <Writing />
+        </div>
         <Contact />
       </main>
       <Footer />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
+import { observe } from "@/lib/reveal-manager";
 
 type RevealProps = {
   children: ReactNode;
@@ -9,22 +10,28 @@ type RevealProps = {
   className?: string;
   /** Render as something other than a div — e.g. "li" inside a list. */
   as?: ElementType;
+  /** Direction the content travels in from. Default "up". */
+  from?: "up" | "left" | "right";
 };
 
+const FROM_CLASS = {
+  up: "reveal",
+  left: "reveal-left",
+  right: "reveal-right",
+} as const;
+
 /**
- * Fades content in once it scrolls into view.
- *
- * Deliberately driven by scroll position rather than IntersectionObserver:
- * an observer can miss elements during a fast scroll or an anchor jump and
- * leave them permanently invisible. A rect check re-runs on every scroll and
- * resize, so content can never get stuck hidden. It also renders visible on
- * the server and reveals immediately if JS never hydrates.
+ * Fades content in as it scrolls into view, through a single shared scroll
+ * listener (see lib/reveal-manager). Renders visible on the server and reveals
+ * immediately if JS never hydrates, so content is never hidden from a crawler
+ * or from a browser that failed to run the script.
  */
 export default function Reveal({
   children,
   delay = 0,
   className,
   as: Tag = "div",
+  from = "up",
 }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   // `null` = not yet measured on the client, so render visible.
@@ -34,42 +41,15 @@ export default function Reveal({
     const node = ref.current;
     if (!node) return;
 
-    let frame = 0;
-
-    const isInView = () => {
-      const { top, bottom } = node.getBoundingClientRect();
-      const viewport = window.innerHeight || document.documentElement.clientHeight;
-      return top < viewport * 0.92 && bottom > 0;
-    };
-
-    // Hide anything that starts below the fold, then let scrolling reveal it.
-    setShown(isInView());
-
-    const check = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        if (isInView()) {
-          setShown(true);
-          window.removeEventListener("scroll", check);
-          window.removeEventListener("resize", check);
-        }
-      });
-    };
-
-    window.addEventListener("scroll", check, { passive: true });
-    window.addEventListener("resize", check);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", check);
-      window.removeEventListener("resize", check);
-    };
+    const { visible, off } = observe(node, () => setShown(true));
+    setShown(visible);
+    return off;
   }, []);
 
   return (
     <Tag
       ref={ref}
-      className={[shown === false ? "opacity-0" : "reveal", className]
+      className={[shown === false ? "opacity-0" : FROM_CLASS[from], className]
         .filter(Boolean)
         .join(" ")}
       style={shown && delay ? { animationDelay: `${delay}ms` } : undefined}

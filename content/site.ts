@@ -378,7 +378,6 @@ export const education = [
     institution: "Bhavitha Degree College, Bellampalli",
     year: "2022 — 2025",
   },
-  { course: "Inter (CEC)", institution: "MIMS Junior College, Mancherial", year: "2019 — 2021" },
   { course: "SSC (10th)", institution: "Yuva Sangatan High School, Bellampalli", year: "2018 — 2019" },
 ] as const;
 
