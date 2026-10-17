@@ -37,12 +37,33 @@ export const hero = {
 export const transformation = {
   before: {
     label: "Your problem",
+    /**
+     * Deliberately many and deliberately broad. A short list invites "none of
+     * those are mine"; a crowded one guarantees a visitor finds theirs, and the
+     * crowding itself is the message. Keep each line under ~20 characters so the
+     * chips stay on one line, and keep `catchAll` last.
+     */
     items: [
-      { id: "b1", text: "Four spreadsheets, one truth" },
-      { id: "b2", text: "Follow-ups chased by hand" },
-      { id: "b3", text: "Same data typed twice" },
-      { id: "b4", text: "Two systems, kept in sync manually" },
+      "Manual data entry",
+      "Excel everywhere",
+      "Copy-paste all day",
+      "Chasing follow-ups",
+      "Quotes typed by hand",
+      "Month-end chaos",
+      "Enquiries slip away",
+      "Orders over WhatsApp",
+      "No single truth",
+      "Stock never matches",
+      "Approvals stuck",
+      "Re-typing invoices",
+      "Reports by hand",
+      "Two systems, no sync",
+      "Customers chasing",
+      "Doing robot work",
+      "Nothing's traceable",
+      "Data in five places",
     ],
+    catchAll: "…and yours, whatever it is",
   },
   middle: {
     label: "Me",
@@ -51,11 +72,8 @@ export const transformation = {
   },
   after: {
     label: "Smooth",
-    items: [
-      { id: "a1", text: "One system, one record" },
-      { id: "a2", text: "Runs without being watched" },
-      { id: "a3", text: "Hours back, every week" },
-    ],
+    /** Exactly three — the calm on this side depends on it being few. */
+    items: ["One system, one record", "Runs without being watched", "Hours back, every week"],
   },
 } as const;
 

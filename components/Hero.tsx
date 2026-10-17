@@ -5,7 +5,7 @@ import TransformationGraph from "./TransformationGraph";
 export default function Hero() {
   return (
     <section id="top" className="mx-auto max-w-6xl px-4 pt-8 pb-14 sm:px-6 sm:pt-12 lg:px-8 lg:pb-20">
-      <div className="grid items-center gap-12 lg:grid-cols-[1fr_560px] lg:gap-10">
+      <div className="grid items-center gap-12 lg:grid-cols-[1fr_620px] lg:gap-10">
         <div>
           {profile.available ? (
             <p className="reveal inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-[13px] font-medium text-body">
@@ -15,7 +15,7 @@ export default function Hero() {
           ) : null}
 
           <h1
-            className="reveal mt-6 text-[clamp(2.4rem,7vw,3.9rem)] leading-[1.05] font-bold tracking-[-0.035em] text-balance"
+            className="reveal mt-6 text-[clamp(2.4rem,6vw,3.1rem)] leading-[1.05] font-bold tracking-[-0.035em] text-balance"
             style={{ animationDelay: "80ms" }}
           >
             {hero.headline.map((line, i) => (
